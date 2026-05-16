@@ -21,20 +21,11 @@ Unraid Docker template for NPMplus, an improved fork of Nginx Proxy Manager.
 
 ## Community Applications
 
-Submit this repository URL to Community Applications:
+Repository URL:
 
 ```text
 https://github.com/Railline/unraid-community-apps
 ```
-
-This repository follows the current CA layout:
-
-- `ca_profile.xml` in the repository root
-- OSI-approved `LICENSE`
-- Docker templates under `templates/`
-- Plugin wrappers/manifests under `plugins/`
-- Public icons under `assets/`
-- One repository for all shared Unraid apps
 
 ## Support
 
