@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>CrowdSec Unraid Bouncer</Name>
+  <PluginURL>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/plugins/crowdsec-unraid-bouncer.plg</PluginURL>
+  <Category>Network:Security</Category>
+  <Icon>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/assets/crowdsec-unraid-bouncer.png</Icon>
+  <Overview>Unraid firewall bouncer for CrowdSec. It consumes CrowdSec Local API decisions and applies them to host and Docker-published traffic through iptables, with ipset support for large global lists and health notifications through Unraid and Telegram.</Overview>
+  <Project>https://github.com/Railline/unraid-community-apps</Project>
+  <Support>https://github.com/Railline/unraid-community-apps/issues</Support>
+  <ReadMe>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/docs/crowdsec-unraid-bouncer.md</ReadMe>
+</Container>
+

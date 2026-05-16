@@ -1,0 +1,5 @@
+﻿*.private.xml
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db

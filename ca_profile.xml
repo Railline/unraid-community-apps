@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<CommunityApplications>
+  <Profile>
+    Railline maintains Unraid Community Applications templates and plugins for practical self-hosting, homelab security, reverse proxying, and server administration. This repository groups all shared Unraid apps in one CA-ready place.
+  </Profile>
+  <Icon>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/assets/crowdsec-unraid-bouncer.png</Icon>
+  <WebPage>https://github.com/Railline/unraid-community-apps</WebPage>
+</CommunityApplications>

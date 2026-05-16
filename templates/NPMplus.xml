@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>NPMplus</Name>
+  <Repository>zoeyvid/npmplus:latest</Repository>
+  <Registry>https://hub.docker.com/r/zoeyvid/npmplus</Registry>
+  <Network>bridge</Network>
+  <MyIP />
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/ZoeyVid/NPMplus/issues</Support>
+  <Project>https://github.com/ZoeyVid/NPMplus</Project>
+  <ReadMe>https://github.com/ZoeyVid/NPMplus#readme</ReadMe>
+  <Overview>NPMplus is an improved fork of Nginx Proxy Manager. This Unraid template provides a ready-to-use bridge-mode setup with grouped variables for ports, ACME, nginx/TLS, GoAccess, PHP, OIDC/auth-request and optional external MariaDB. Review the port mappings before first start, especially if the Unraid WebUI already uses ports 80 or 443.</Overview>
+  <Category>Network:Proxy:Web</Category>
+  <WebUI>http://[IP]:[PORT:81]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/templates/NPMplus.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/assets/npmplus.png</Icon>
+  <ExtraParams>--security-opt=no-new-privileges:true</ExtraParams>
+  <PostArgs />
+  <CPUset />
+  <DateInstalled></DateInstalled>
+  <DonateText />
+  <DonateLink />
+  <Requires />
+  <TailscaleStateDir />
+  <Config Name="Paths - Data" Target="/data" Default="/mnt/user/appdata/npmplus" Mode="rw" Description="Persistent NPMplus data, certificates, nginx configuration and database files when SQLite is used." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/npmplus</Config>
+  <Config Name="Paths - Web root" Target="/var/www" Default="/mnt/user/appdata/npmplus/www" Mode="rw" Description="Optional web root if you want NPMplus to serve static HTML/PHP content directly." Type="Path" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Paths - GoAccess GeoIP DB" Target="/opt/npmplus/goaccess/geoip" Default="/mnt/user/appdata/npmplus/goaccess/geoip" Mode="rw" Description="Optional GeoIP database directory for GoAccess. Put MaxMind GeoLite2 files here if GOA is enabled." Type="Path" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Core - TZ" Target="TZ" Default="Etc/UTC" Mode="" Description="Timezone, for example Europe/Paris or America/New_York." Type="Variable" Display="always" Required="true" Mask="false">Etc/UTC</Config>
+  <Config Name="Core - ENABLE_PRERUN" Target="ENABLE_PRERUN" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Core - PUID" Target="PUID" Default="99" Mode="" Description="Unraid nobody user id. Use 0 only if you know why you need root inside the container." Type="Variable" Display="advanced" Required="true" Mask="false">99</Config>
+  <Config Name="Core - PGID" Target="PGID" Default="100" Mode="" Description="Unraid users group id." Type="Variable" Display="advanced" Required="true" Mask="false">100</Config>
+  <Config Name="Core - DISABLE_GRAVATAR" Target="DISABLE_GRAVATAR" Default="true" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="Core - COOKIE_SECRET" Target="COOKIE_SECRET" Default="some-random-string" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Ports - NPM_PORT" Target="NPM_PORT" Default="81" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">81</Config>
+  <Config Name="Ports - NPM UI host port" Target="81" Default="81" Mode="tcp" Description="Host port for the NPMplus web interface." Type="Port" Display="always" Required="true" Mask="false">81</Config>
+  <Config Name="Ports - GOA_PORT" Target="GOA_PORT" Default="91" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">91</Config>
+  <Config Name="Ports - GoAccess host port" Target="91" Default="91" Mode="tcp" Description="Host port for GoAccess. Keep equal to GOA_PORT unless you know why you need a different mapping." Type="Port" Display="always" Required="false" Mask="false">91</Config>
+  <Config Name="Ports - HTTP_PORT" Target="HTTP_PORT" Default="8080" Mode="" Description="Internal HTTP port used by NPMplus. Host port below maps to this container port." Type="Variable" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="Ports - HTTP host port" Target="8080" Default="80" Mode="tcp" Description="Host port for HTTP traffic. Change this if Unraid already uses port 80." Type="Port" Display="always" Required="true" Mask="false">80</Config>
+  <Config Name="Ports - HTTPS_PORT" Target="HTTPS_PORT" Default="8443" Mode="" Description="Internal HTTPS port used by NPMplus. Host ports below map to this container port." Type="Variable" Display="always" Required="true" Mask="false">8443</Config>
+  <Config Name="Ports - HTTPS host port TCP" Target="8443" Default="443" Mode="tcp" Description="Host port for HTTPS traffic. Change this if Unraid already uses port 443." Type="Port" Display="always" Required="true" Mask="false">443</Config>
+  <Config Name="Ports - HTTPS host port UDP" Target="8443" Default="443" Mode="udp" Description="This is just the port binding for HTTPS_PORT if u are in bridge mode, this need to be = to HTTPS_PORT Port Config" Type="Port" Display="always" Required="true" Mask="false">443</Config>
+  <Config Name="Ports / bind - IPV4_BINDING" Target="IPV4_BINDING" Default="0.0.0.0" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="Ports / bind - NPM_IPV4_BINDING" Target="NPM_IPV4_BINDING" Default="0.0.0.0" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="Ports / bind - GOA_IPV4_BINDING" Target="GOA_IPV4_BINDING" Default="0.0.0.0" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">0.0.0.0</Config>
+  <Config Name="Ports / bind - IPV6_BINDING" Target="IPV6_BINDING" Default="[::]" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">[::]</Config>
+  <Config Name="Ports / bind - NPM_IPV6_BINDING" Target="NPM_IPV6_BINDING" Default="[::]" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">[::]</Config>
+  <Config Name="Ports / bind - GOA_IPV6_BINDING" Target="GOA_IPV6_BINDING" Default="[::]" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">[::]</Config>
+  <Config Name="Ports / bind - DISABLE_IPV6" Target="DISABLE_IPV6" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Ports / bind - NPM_LISTEN_LOCALHOST" Target="NPM_LISTEN_LOCALHOST" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Ports / bind - GOA_LISTEN_LOCALHOST" Target="GOA_LISTEN_LOCALHOST" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Ports / bind - DISABLE_HTTP" Target="DISABLE_HTTP" Default="false" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="Ports / bind - DISABLE_H3_QUIC" Target="DISABLE_H3_QUIC" Default="false" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="Ports / bind - ENABLE_MPTCP" Target="ENABLE_MPTCP" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="ACME - ACME_EMAIL" Target="ACME_EMAIL" Default="you@example.com" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="ACME - ACME_SERVER" Target="ACME_SERVER" Default="https://acme-v02.api.letsencrypt.org/directory" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">https://acme-v02.api.letsencrypt.org/directory</Config>
+  <Config Name="ACME - ACME_EAB_KID" Target="ACME_EAB_KID" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="ACME - ACME_EAB_HMAC_KEY" Target="ACME_EAB_HMAC_KEY" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="ACME - ACME_PROFILE" Target="ACME_PROFILE" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="ACME - ACME_MUST_STAPLE" Target="ACME_MUST_STAPLE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="ACME - ACME_OCSP_STAPLING" Target="ACME_OCSP_STAPLING" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="ACME - ACME_KEY_TYPE" Target="ACME_KEY_TYPE" Default="ecdsa" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">ecdsa</Config>
+  <Config Name="ACME - ACME_KEY_SIZE" Target="ACME_KEY_SIZE" Default="secp384r1" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">secp384r1</Config>
+  <Config Name="ACME - ACME_SERVER_TLS_VERIFY" Target="ACME_SERVER_TLS_VERIFY" Default="true" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Name="ACME - CUSTOM_OCSP_STAPLING" Target="CUSTOM_OCSP_STAPLING" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="ACME - DEFAULT_CERT_ID" Target="DEFAULT_CERT_ID" Default="0" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+  <Config Name="Proxy protocol - LISTEN_PROXY_PROTOCOL" Target="LISTEN_PROXY_PROTOCOL" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Proxy protocol - LISTEN_PROXY_PROTOCOL_HTTP" Target="LISTEN_PROXY_PROTOCOL_HTTP" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Proxy protocol - LISTEN_PROXY_PROTOCOL_HTTPS" Target="LISTEN_PROXY_PROTOCOL_HTTPS" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - NGINX_QUIC_BPF" Target="NGINX_QUIC_BPF" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - NGINX_LOG_NOT_FOUND" Target="NGINX_LOG_NOT_FOUND" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - NGINX_WORKER_PROCESSES" Target="NGINX_WORKER_PROCESSES" Default="auto" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">auto</Config>
+  <Config Name="Nginx / TLS - NGINX_WORKER_CONNECTIONS" Target="NGINX_WORKER_CONNECTIONS" Default="512" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">512</Config>
+  <Config Name="Nginx / TLS - NGINX_FORCE_X25519MLKEM768" Target="NGINX_FORCE_X25519MLKEM768" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - NGINX_DISABLE_TLS12" Target="NGINX_DISABLE_TLS12" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - NGINX_TRUST_SECPR1" Target="NGINX_TRUST_SECPR1" Default="true" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  <Config Mode="" Description="Enables rsa_pkcs1_sha512:rsa_pkcs1_sha384:rsa_pkcs1_sha256 sigalgs. Default false. Enable only if you use an RSA key and a client does not support RSA-PSS." Type="Variable" Default="false" Mask="false" Display="advanced" Name="Nginx / TLS - NGINX_TRUST_RSA_PKCS1" Target="NGINX_TRUST_RSA_PKCS1" Required="false">false</Config>
+  <Config Name="Nginx / TLS - DISABLE_NGINX_BEAUTIFIER" Target="DISABLE_NGINX_BEAUTIFIER" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Nginx / TLS - TRUST_CLOUDFLARE" Target="TRUST_CLOUDFLARE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_OPENAPPSEC_ATTACHMENT_MODULE" Target="NGINX_LOAD_OPENAPPSEC_ATTACHMENT_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_NJS_MODULE" Target="NGINX_LOAD_NJS_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_GEOIP2_MODULE" Target="NGINX_LOAD_GEOIP2_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_LDAP_MODULE" Target="NGINX_LOAD_LDAP_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_NTLM_MODULE" Target="NGINX_LOAD_NTLM_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Modules - NGINX_LOAD_VHOST_TRAFFIC_STATUS_MODULE" Target="NGINX_LOAD_VHOST_TRAFFIC_STATUS_MODULE" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="Logs / GoAccess - LOGROTATE" Target="LOGROTATE" Default="true" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+  <Config Name="Logs / GoAccess - LOGROTATIONS" Target="LOGROTATIONS" Default="7" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">7</Config>
+  <Config Name="Logs / GoAccess - CERTBOT_RUN_INTERVAL" Target="CERTBOT_RUN_INTERVAL" Default="3" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">3</Config>
+  <Config Name="Logs / GoAccess - ECH_ROTATION_INTERVAL" Target="ECH_ROTATION_INTERVAL" Default="1" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
+  <Config Name="Logs / GoAccess - GOA" Target="GOA" Default="false" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">false</Config>
+  <Config Name="Logs / GoAccess - GOACLA" Target="GOACLA" Default="--agent-list --real-os --double-decode --anonymize-ip --anonymize-level=1 --keep-last=30 --with-output-resolver --no-query-string" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">--agent-list --real-os --double-decode --anonymize-ip --anonymize-level=1 --keep-last=30 --with-output-resolver --no-query-string</Config>
+  <Config Name="PHP - PHP82" Target="PHP82" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="PHP - PHP82_APKS" Target="PHP82_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="PHP - PHP83" Target="PHP83" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="PHP - PHP83_APKS" Target="PHP83_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="PHP - PHP84" Target="PHP84" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="PHP - PHP84_APKS" Target="PHP84_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="PHP - PHP85" Target="PHP85" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="PHP - PHP85_APKS" Target="PHP85_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="PHP - PHP_APKS" Target="PHP_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Initial admin - INITIAL_ADMIN_EMAIL" Target="INITIAL_ADMIN_EMAIL" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Initial admin - INITIAL_ADMIN_PASSWORD" Target="INITIAL_ADMIN_PASSWORD" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Initial admin - INITIAL_DEFAULT_PAGE" Target="INITIAL_DEFAULT_PAGE" Default="congratulations" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">congratulations</Config>
+  <Config Name="OIDC - OIDC_REDIRECT_DOMAIN" Target="OIDC_REDIRECT_DOMAIN" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OIDC - OIDC_ISSUER_URL" Target="OIDC_ISSUER_URL" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OIDC - NODE_TLS_REJECT_UNAUTHORIZED" Target="NODE_TLS_REJECT_UNAUTHORIZED" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OIDC - OIDC_CLIENT_ID" Target="OIDC_CLIENT_ID" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OIDC - OIDC_CLIENT_SECRET" Target="OIDC_CLIENT_SECRET" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="OIDC - OIDC_REQUIRE_VERIFIED_EMAIL" Target="OIDC_REQUIRE_VERIFIED_EMAIL" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OIDC - OIDC_DISABLE_PASSWORD" Target="OIDC_DISABLE_PASSWORD" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_ANUBIS_UPSTREAM" Target="AUTH_REQUEST_ANUBIS_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_TINYAUTH_UPSTREAM" Target="AUTH_REQUEST_TINYAUTH_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_OAUTH2PROXY_UPSTREAM" Target="AUTH_REQUEST_OAUTH2PROXY_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_VOIDAUTH_UPSTREAM" Target="AUTH_REQUEST_VOIDAUTH_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_AUTHELIA_UPSTREAM" Target="AUTH_REQUEST_AUTHELIA_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Auth request - AUTH_REQUEST_AUTHENTIK_UPSTREAM" Target="AUTH_REQUEST_AUTHENTIK_UPSTREAM" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Database - DB_MYSQL_NAME" Target="DB_MYSQL_NAME" Default="" Mode="" Description="Optional external MariaDB/MySQL database name. Leave empty to use the built-in SQLite database." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Database - DB_MYSQL_PORT" Target="DB_MYSQL_PORT" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Database - DB_MYSQL_HOST" Target="DB_MYSQL_HOST" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Database - DB_MYSQL_USER" Target="DB_MYSQL_USER" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Database - DB_MYSQL_PASSWORD" Target="DB_MYSQL_PASSWORD" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+</Container>

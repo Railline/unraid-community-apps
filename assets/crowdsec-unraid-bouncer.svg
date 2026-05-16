@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="CrowdSec Unraid Bouncer">
+  <defs>
+    <linearGradient id="g" x1="28" x2="228" y1="28" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00d5ff"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="42" fill="#08111f"/>
+  <path d="M128 24 214 58v66c0 55-33 93-86 113-53-20-86-58-86-113V58l86-34Z" fill="url(#g)"/>
+  <path d="M128 48 190 73v50c0 39-22 67-62 84-40-17-62-45-62-84V73l62-25Z" fill="#08111f" opacity=".92"/>
+  <path d="M92 130h72M128 94v72" stroke="#f8fbff" stroke-width="20" stroke-linecap="round"/>
+</svg>
