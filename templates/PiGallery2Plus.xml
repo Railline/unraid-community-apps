@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>PiGallery2 Plus</Name>
+  <Repository>railline/pigallery2plus:latest</Repository>
+  <Registry>https://hub.docker.com/r/railline/pigallery2plus</Registry>
+  <Network>bridge</Network>
+  <MyIP />
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/Railline/pigallery2plus/issues</Support>
+  <Project>https://github.com/Railline/pigallery2plus</Project>
+  <ReadMe>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/docs/pigallery2plus.md</ReadMe>
+  <Overview>PiGallery2 Plus is a performance and metadata focused fork of PiGallery2 for large self-hosted photo and video archives. It keeps the fast directory-first gallery experience while adding improved infinite browsing, richer metadata display, share-link fixes, public random-image links, activity audit logs, wider video transcoding support, and a more ergonomic lightbox player. Mount your media library read-only for safer public exposure.</Overview>
+  <Category>MediaApp:Photos:Video</Category>
+  <WebUI>http://[IP]:[PORT:80]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/templates/PiGallery2Plus.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/assets/pigallery2plus.png</Icon>
+  <ExtraParams>--security-opt=no-new-privileges:true</ExtraParams>
+  <PostArgs />
+  <CPUset />
+  <DateInstalled></DateInstalled>
+  <DonateText />
+  <DonateLink />
+  <Requires />
+  <TailscaleStateDir />
+  <Config Name="WebUI - HTTP host port" Target="80" Default="8089" Mode="tcp" Description="Host port for the PiGallery2 Plus web interface." Type="Port" Display="always" Required="true" Mask="false">8089</Config>
+  <Config Name="Paths - Config" Target="/app/data/config" Default="/mnt/user/appdata/pigallery2plus/config" Mode="rw" Description="Persistent PiGallery2 Plus configuration, including config.json and extension configuration." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/pigallery2plus/config</Config>
+  <Config Name="Paths - Database" Target="/app/data/db" Default="/mnt/user/appdata/pigallery2plus/db" Mode="rw" Description="Persistent database folder. SQLite databases and job history live here." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/pigallery2plus/db</Config>
+  <Config Name="Paths - Temp and cache" Target="/app/data/tmp" Default="/mnt/user/appdata/pigallery2plus/tmp" Mode="rw" Description="Temporary files, thumbnails, transcoding cache and generated assets. Put this on SSD/cache for best performance." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/pigallery2plus/tmp</Config>
+  <Config Name="Paths - Media library" Target="/app/data/images" Default="/mnt/user/photos" Mode="ro" Description="Your photo and video archive. The default mapping is read-only and recommended for public galleries." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/photos</Config>
+  <Config Name="Core - TZ" Target="TZ" Default="Etc/UTC" Mode="" Description="Timezone used by the container, for example Europe/Paris." Type="Variable" Display="always" Required="true" Mask="false">Etc/UTC</Config>
+  <Config Name="Core - NODE_ENV" Target="NODE_ENV" Default="production" Mode="" Description="Runtime mode. Use production for normal deployments; debug is only for troubleshooting." Type="Variable" Display="advanced" Required="true" Mask="false">production</Config>
+  <Config Name="Public URL" Target="default-Server-publicUrl" Default="" Mode="" Description="Optional public base URL, for example https://gallery.example.com. Set this when generating share links or random-image URLs behind a reverse proxy." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+</Container>
