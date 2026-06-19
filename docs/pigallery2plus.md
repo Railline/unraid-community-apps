@@ -12,7 +12,7 @@ It keeps the original directory-first gallery model and adds features aimed at l
 - Public random-image URLs that can be constrained by a share key and search query.
 - Editable random-link queries for admins and link owners.
 - Activity audit logs for logins, user actions, share-link use, and admin views.
-- Wider video support through ffmpeg-backed transcoding, including MKV and other common archive formats.
+- Browser-native MP4/WebM/OGV playback stays direct, with ffmpeg fallback handling for formats that need conversion.
 - Lightbox video controls with 5 second keyboard seeking and finer volume handling.
 
 ## Recommended Unraid Setup
@@ -45,7 +45,7 @@ railline/pigallery2plus:latest
 Versioned tags are also available, for example:
 
 ```text
-railline/pigallery2plus:3.6.0-plus.4
+railline/pigallery2plus:3.6.0-plus.8
 ```
 
 ## Support
