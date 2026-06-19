@@ -142,6 +142,38 @@ Alerts can be sent to:
 - Unraid WebUI notifications;
 - Telegram, using the existing CrowdSec `http.yaml` notification config.
 
+## CrowdSec Threat Map Drops Export
+
+The optional **CrowdSec Threat Map drops export** setting adds visibility for packets that are actually dropped by the Unraid firewall.
+
+When enabled, the plugin:
+
+- adds rate-limited netfilter `LOG` rules only in front of CrowdSec-managed `DROP` rules;
+- reads matching `CROWDSEC_DROP` kernel/syslog lines;
+- writes compact JSONL events for CrowdSec Threat Map;
+- caps the JSONL file so it cannot grow forever.
+
+Default output:
+
+```bash
+/mnt/cache/appdata/crowdsec-threat-map/drops/drops.jsonl
+```
+
+The Threat Map container should mount the parent folder read-only:
+
+```text
+/mnt/cache/appdata/crowdsec-threat-map/drops -> /crowdsec/drops:ro
+```
+
+and use:
+
+```text
+DROPS_ENABLED=true
+DROPS_LOG_PATH=/crowdsec/drops/drops.jsonl
+```
+
+This export is optional and does not change the firewall decision source. It only records packets that were already matched by CrowdSec block rules. Keep the log rate limit conservative to avoid syslog noise during attacks.
+
 ## Commands
 
 ```bash
@@ -208,4 +240,3 @@ Open issues at:
 ```text
 https://github.com/Railline/unraid-community-apps/issues
 ```
-
