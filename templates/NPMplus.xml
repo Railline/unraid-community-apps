@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Container version="2">
   <Name>NPMplus</Name>
-  <Repository>zoeyvid/npmplus:latest</Repository>
-  <Registry>https://hub.docker.com/r/zoeyvid/npmplus</Registry>
+  <Repository>ghcr.io/zoeyvid/npmplus:latest</Repository>
+  <Registry>https://github.com/ZoeyVid/NPMplus/pkgs/container/npmplus</Registry>
   <Network>bridge</Network>
   <MyIP />
   <Shell>sh</Shell>
@@ -10,7 +10,7 @@
   <Support>https://github.com/ZoeyVid/NPMplus/issues</Support>
   <Project>https://github.com/ZoeyVid/NPMplus</Project>
   <ReadMe>https://github.com/ZoeyVid/NPMplus#readme</ReadMe>
-  <Overview>NPMplus is an improved fork of Nginx Proxy Manager. This Unraid template provides a ready-to-use bridge-mode setup with grouped variables for ports, ACME, nginx/TLS, GoAccess, PHP, OIDC/auth-request and optional external MariaDB. Review the port mappings before first start, especially if the Unraid WebUI already uses ports 80 or 443.</Overview>
+  <Overview>NPMplus is an improved fork of Nginx Proxy Manager. This Unraid template provides a ready-to-use bridge-mode setup with grouped variables for ports, ACME, nginx/TLS, GoAccess, PHP, OIDC/auth-request and optional external MariaDB/MySQL compatibility. External MariaDB/MySQL is unsupported by NPMplus upstream and SQLite is recommended for new installs. Review the port mappings before first start, especially if the Unraid WebUI already uses ports 80 or 443.</Overview>
   <Category>Network:Proxy:Web</Category>
   <WebUI>http://[IP]:[PORT:81]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/Railline/unraid-community-apps/main/templates/NPMplus.xml</TemplateURL>
@@ -90,8 +90,6 @@
   <Config Name="Logs / GoAccess - ECH_ROTATION_INTERVAL" Target="ECH_ROTATION_INTERVAL" Default="1" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
   <Config Name="Logs / GoAccess - GOA" Target="GOA" Default="false" Mode="" Description="" Type="Variable" Display="always" Required="true" Mask="false">false</Config>
   <Config Name="Logs / GoAccess - GOACLA" Target="GOACLA" Default="--agent-list --real-os --double-decode --anonymize-ip --anonymize-level=1 --keep-last=30 --with-output-resolver --no-query-string" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">--agent-list --real-os --double-decode --anonymize-ip --anonymize-level=1 --keep-last=30 --with-output-resolver --no-query-string</Config>
-  <Config Name="PHP - PHP82" Target="PHP82" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
-  <Config Name="PHP - PHP82_APKS" Target="PHP82_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
   <Config Name="PHP - PHP83" Target="PHP83" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
   <Config Name="PHP - PHP83_APKS" Target="PHP83_APKS" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
   <Config Name="PHP - PHP84" Target="PHP84" Default="false" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
