@@ -29,7 +29,7 @@ Unraid Docker template for PiGallery2 Plus, a performance and metadata focused f
 
 ### CrowdSec Threat Map
 
-Unraid Docker template for the Railline CrowdSec Threat Map fork, with English/French UI, readable dashboard text and optional live firewall drops.
+Unraid Docker template for the Railline CrowdSec Threat Map fork, with English/French UI and readable dashboard text.
 
 - Docker template: `templates/CrowdSec-Threat-Map.xml`
 - Docker image: `ghcr.io/railline/crowdsec-threat-map-docker`
